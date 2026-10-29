@@ -3,15 +3,17 @@
 
 #include <string>
 
+using namespace std;
+
 class Produkt {
   public:
     int id;
-    std::string nazwa;
+    string nazwa;
     double cena;
 
     Produkt() : id(0), cena(0.0) {}
 
-    Produkt(int idProduktu, const std::string& nazwaProduktu, double cenaProduktu)
+    Produkt(int idProduktu, string nazwaProduktu, double cenaProduktu)
         : id(idProduktu), nazwa(nazwaProduktu), cena(cenaProduktu) {}
 };
 
