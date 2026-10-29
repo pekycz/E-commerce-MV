@@ -1,9 +1,24 @@
-#pragma once
-#include <iostream>
+#ifndef PLATNOSC_H
+#define PLATNOSC_H
+
 using namespace std;
 
-class Platnosc {
-    protected:
-        int id;
-        int status;
+enum class StatusPlatnosci {
+  Oczekujaca,
+  Oplacona,
+  Odrzucona
 };
+
+class Platnosc {
+  public:
+    int id;
+    double kwota;
+    StatusPlatnosci status;
+
+    Platnosc(int idPlatnosci = 0, double kwotaPlatnosci = 0.0)
+        : id(idPlatnosci),
+          kwota(kwotaPlatnosci),
+          status(StatusPlatnosci::Oczekujaca) {}
+};
+
+#endif // PLATNOSC_H
