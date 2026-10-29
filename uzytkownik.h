@@ -3,11 +3,13 @@
 
 #include <string>
 
+using namespace std;
+
 class Uzytkownik {
   public:
     int id = 0;
-    std::string nazwa;
-    std::string haslo;
+    string nazwa;
+    string haslo;
 };
 
 #endif // UZYTKOWNIK_H

@@ -1,31 +1,27 @@
 #ifndef ADMINISTRATOR_H
 #define ADMINISTRATOR_H
 
-#include "systemsklepu.h"
+#include "produkt.h"
 #include "uzytkownik.h"
 
 #include <string>
 
-class Administrator : public Uzytkownik {
-  private:
-    SystemSklepu& systemSklepu_;
+using namespace std;
 
+class SystemSklepu;
+
+class Administrator : public Uzytkownik {
   public:
-    Administrator(int id, const std::string& nazwa, const std::string& haslo,
-                  SystemSklepu& systemSklepu)
-        : systemSklepu_(systemSklepu) {
+    Administrator() = default;
+
+    Administrator(int id, string nazwa, string haslo) {
       Uzytkownik::id = id;
       Uzytkownik::nazwa = nazwa;
       Uzytkownik::haslo = haslo;
     }
 
-    void dodajProdukt(const Produkt& produkt) {
-      systemSklepu_.dodajProdukt(produkt);
-    }
-
-    void edytujProdukt(const Produkt& produkt) {
-      systemSklepu_.edytujProdukt(produkt);
-    }
+    void dodajProdukt(const Produkt& produkt, SystemSklepu& sklep);
+    void edytujProdukt(const Produkt& produkt, SystemSklepu& sklep);
 };
 
 #endif // ADMINISTRATOR_H
