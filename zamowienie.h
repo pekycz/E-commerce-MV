@@ -12,7 +12,7 @@ class zamowienie {
   public:
     zamowienie() : id(0), koszt(0.0), pozycjaZamowienia(0) {}
 
-    std::string pobierzKomunikat() const {
+    std::string zamowienieKomunikat() const {
       return "Zamowienie zlozone";
     }
 };
