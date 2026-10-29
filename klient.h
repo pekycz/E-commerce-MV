@@ -1,51 +1,26 @@
-//klient.h
 #ifndef KLIENT_H
 #define KLIENT_H
 
 #include "koszyk.h"
+#include "uzytkownik.h"
+#include "zamowienie.h"
 
 #include <string>
 
-class klient {
-  protected:
-    int id_;
-    std::string nazwa_;
-    std::string email_;
-    std::string hashHasla_;
-    Koszyk* koszyk_;
-
+class Klient : public Uzytkownik {
   public:
-    klient(int id, const std::string& nazwa, const std::string& email)
-        : id_(id), nazwa_(nazwa), email_(email), koszyk_(nullptr) {}
+    Koszyk koszyk;
 
-    int pobierzId() const {
-      return id_;
+    Klient(int id, const std::string& nazwa, const std::string& haslo) {
+      Uzytkownik::id = id;
+      Uzytkownik::nazwa = nazwa;
+      Uzytkownik::haslo = haslo;
     }
 
-    const std::string& pobierzNazwe() const {
-      return nazwa_;
-    }
-
-    const std::string& pobierzEmail() const {
-      return email_;
-    }
-
-    void zmienDane(const std::string& nazwa, const std::string& email) {
-      nazwa_ = nazwa;
-      email_ = email;
-    }
-
-    void ustawHashHasla(const std::string& hashHasla) {
-      hashHasla_ = hashHasla;
-    }
-
-    void przypiszKoszyk(Koszyk& koszyk) {
-      koszyk_ = &koszyk;
-    }
-
-    Koszyk* pobierzKoszyk() const {
-      return koszyk_;
+    zamowienie zlozZamowienie() const {
+      return zamowienie();
     }
 };
+
 
 #endif // KLIENT_H
