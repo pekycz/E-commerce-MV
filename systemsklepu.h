@@ -35,8 +35,7 @@ class SystemSklepu {
           throw invalid_argument("Uzytkownik o takiej nazwie juz istnieje.");
         }
       }
-
-      klienci_.emplace_back(static_cast<int>(klienci_.size()) + 1, nazwa, haslo);
+      klienci_.emplace_back((klienci_.size()) + 1, nazwa, haslo);
       return klienci_.back();
     }
 

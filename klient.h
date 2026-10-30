@@ -28,6 +28,10 @@ class Klient : public Uzytkownik {
       koszyk.dodajProdukt(produkt, ilosc);
     }
 
+    const map<int, Koszyk::Pozycja>& pobierzProduktyWKoszyku() const {
+      return koszyk.pobierzProdukty();
+    }
+
     Zamowienie zlozZamowienie() {
       if (koszyk.pobierzProdukty().empty()) {
         throw runtime_error("Koszyk jest pusty.");
