@@ -11,10 +11,9 @@ class Produkt {
     string nazwa;
     double cena;
 
-    Produkt() : id(0), cena(0.0) {}
+    Produkt();
 
-    Produkt(int idProduktu, string nazwaProduktu, double cenaProduktu)
-        : id(idProduktu), nazwa(nazwaProduktu), cena(cenaProduktu) {}
+    Produkt(int idProduktu, string nazwaProduktu, double cenaProduktu);
 };
 
 #endif // PRODUKT_H
