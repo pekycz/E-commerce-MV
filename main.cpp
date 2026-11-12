@@ -18,17 +18,31 @@ int main()
 
   Klient &klient = sklep.zarejestrujKlienta("Ala", "haslo");
 
-  cout << "Witaj w sklepie, " << klient.pobierzNazwe() << "!\n";
+  int rola;
+  cout << "Wybierz role:\n1. Klient\n2. Administrator\n";
+  cin >> rola;
+  bool czyAdministrator = rola == 2;
+  cout << "Zalogowano jako "
+       << (czyAdministrator ? "Administrator" : "Klient") << ".\n";
 
   while (true)
   {
     cout << "\nMENU SKLEPU\n"
-         << "1. Dodaj produkt do koszyka\n"
-         << "2. Zloz zamowienie\n"
-         << "3. Wyswietl zawartosc koszyka\n"
-         << "4. Wyszukaj produkt\n"
-         << "5. Pokaz zamowienia\n"
-         << "6. Zmien status zamowienia\n"
+         << "1. Wyszukaj produkt\n";
+    if (czyAdministrator)
+    {
+      cout << "2. Dodaj produkt do systemu\n"
+           << "3. Pokaz zamowienia\n"
+           << "4. Zmien status zamowienia\n";
+    }
+    else
+    {
+      cout << "2. Dodaj produkt do koszyka\n"
+           << "3. Zloz zamowienie\n"
+           << "4. Wyswietl zawartosc koszyka\n"
+           << "5. Pokaz zamowienia\n";
+    }
+    cout
          << "0. Zakoncz bez skladania zamowienia\n";
 
     int wybor;
@@ -42,6 +56,30 @@ int main()
     }
 
     if (wybor == 1)
+    {
+      string nazwa;
+      string kategoria;
+      cout << "Podaj nazwe produktu (lub -): ";
+      cin >> nazwa;
+      cout << "Podaj kategorie (lub -): ";
+      cin >> kategoria;
+      if (kategoria == "-")
+      {
+        kategoria = "";
+      }
+      if (nazwa == "-")
+      {
+        nazwa = "";
+      }
+      for (const Produkt &produkt : sklep.wyszukajProdukty(nazwa, kategoria))
+      {
+        cout << produkt.pobierzId() << ". " << produkt.pobierzNazwe()
+             << " - " << produkt.pobierzCene() << " zl\n";
+      }
+      continue;
+    }
+
+    if (!czyAdministrator && wybor == 2)
     {
       cout << "\nDostepne produkty:\n";
       for (const Produkt &produkt : sklep.pobierzProdukty())
@@ -94,7 +132,7 @@ int main()
       continue;
     }
 
-    if (wybor == 2)
+    if (!czyAdministrator && wybor == 3)
     {
       try
       {
@@ -105,15 +143,14 @@ int main()
         cout << fixed << setprecision(2)
              << "Zamowienie nr " << zamowienie.id
              << " zlozone. Koszt: " << zamowienie.obliczKoszt() << " zl\n";
-        break;
       }
-      catch (const runtime_error &blad)
+      catch (const exception &blad)
       {
         cout << blad.what() << "\n";
         continue;
       }
     }
-    if (wybor == 3)
+    if (!czyAdministrator && wybor == 4)
     {
       cout << "\nZawartosc koszyka:\n";
       for (const auto &wpis : klient.pobierzProduktyWKoszyku())
@@ -128,26 +165,7 @@ int main()
       cout << "Razem: " << klient.obliczKosztKoszyka() << " zl\n";
       continue;
     }
-    if (wybor == 4)
-    {
-      string nazwa;
-      string kategoria;
-      cout << "Podaj nazwe produktu: ";
-      cin >> nazwa;
-      cout << "Podaj kategorie lub -: ";
-      cin >> kategoria;
-      if (kategoria == "-")
-      {
-        kategoria = "";
-      }
-      for (const Produkt& produkt : sklep.wyszukajProdukty(nazwa, kategoria))
-      {
-        cout << produkt.pobierzId() << ". " << produkt.pobierzNazwe()
-             << " - " << produkt.pobierzCene() << " zl\n";
-      }
-      continue;
-    }
-    if (wybor == 5)
+    if (!czyAdministrator && wybor == 5)
     {
       for (const Zamowienie& zamowienie : sklep.pobierzZamowienia())
       {
@@ -156,7 +174,27 @@ int main()
       }
       continue;
     }
-    if (wybor == 6)
+    if (czyAdministrator && wybor == 2)
+    {
+      int id;
+      string nazwa;
+      double cena;
+      cout << "Podaj id, nazwe i cene produktu: ";
+      cin >> id >> nazwa >> cena;
+      administrator.dodajProdukt(Produkt(id, nazwa, cena), sklep);
+      cout << "Produkt dodano.\n";
+      continue;
+    }
+    if (czyAdministrator && wybor == 3)
+    {
+      for (const Zamowienie& zamowienie : sklep.pobierzZamowienia())
+      {
+        cout << "Zamowienie " << zamowienie.id
+             << ", koszt: " << zamowienie.obliczKoszt() << " zl\n";
+      }
+      continue;
+    }
+    if (czyAdministrator && wybor == 4)
     {
       int idZamowienia;
       int status;
@@ -169,7 +207,7 @@ int main()
       cout << "Status zmieniono.\n";
       continue;
     }
-    cout << "Nieprawidlowa opcja. Wybierz 0, 1, 2 lub 3.\n";
+    cout << "Nieprawidlowa opcja.\n";
   }
 
   return 0;
