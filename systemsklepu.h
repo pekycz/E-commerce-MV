@@ -9,26 +9,31 @@
 #include <list>
 #include <stdexcept>
 #include <string>
+#include <vector>
 
 using namespace std;
 
-class SystemSklepu {
-  private:
-    list<Klient> klienci_;
-    list<Administrator> administratorzy_;
-    list<Produkt> produkty_;
-    list<Zamowienie> zamowienia_;
+class SystemSklepu
+{
+private:
+  list<Klient> klienci_;
+  list<Administrator> administratorzy_;
+  list<Produkt> produkty_;
+  list<Zamowienie> zamowienia_;
 
 public:
   Produkt znajdzProdukt(int id) const;
-  Klient& zarejestrujKlienta(string nazwa, string haslo);
-  void dodajAdministratora(const Administrator& administrator);
-  Uzytkownik zaloguj(string nazwa, string haslo) const;
-  void dodajProdukt(const Produkt& produkt);
-  void edytujProdukt(const Produkt& produkt);
-  void dodajZamowienie(const Zamowienie& zamowienie);
-  const list<Produkt>& pobierzProdukty() const;
-  const list<Zamowienie>& pobierzZamowienia() const;
+  Klient &zarejestrujKlienta(string nazwa, string haslo);
+  void dodajAdministratora(const Administrator &administrator);
+  const Uzytkownik &zaloguj(const string &nazwa, const string &haslo) const;
+  void dodajProdukt(const Produkt &produkt);
+  void edytujProdukt(const Produkt &produkt);
+  void dodajZamowienie(const Zamowienie &zamowienie);
+  vector<Produkt> wyszukajProdukty(
+      const string &nazwa, const string &kategoria) const;
+  void zmienStatusZamowienia(int idZamowienia, StatusZamowienia status);
+  const list<Produkt> &pobierzProdukty() const;
+  const list<Zamowienie> &pobierzZamowienia() const;
 };
 
 #endif // SYSTEMSKLEPU_H
