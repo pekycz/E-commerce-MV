@@ -23,5 +23,6 @@ class Koszyk {
     void usunProdukt(const Produkt& produkt, int ilosc);
     void wyczysc();
     map<int, Pozycja>& pobierzProdukty();
+    const map<int, Pozycja>& pobierzProdukty() const;
   };
 #endif // KOSZYK_H

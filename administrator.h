@@ -14,11 +14,7 @@ class Administrator : public Uzytkownik {
   public:
     Administrator() = default;
 
-    Administrator(int id, string nazwa, string haslo) {
-      Uzytkownik::id = id;
-      Uzytkownik::nazwa = nazwa;
-      Uzytkownik::haslo = haslo;
-    }
+    Administrator(int id, string nazwa, string haslo);
 
     void dodajProdukt(const Produkt& produkt, SystemSklepu& sklep);
     void edytujProdukt(const Produkt& produkt, SystemSklepu& sklep);

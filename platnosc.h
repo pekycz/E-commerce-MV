@@ -11,14 +11,11 @@ enum class StatusPlatnosci {
 
 class Platnosc {
   public:
-    int id;
-    double kwota;
-    StatusPlatnosci status;
+  int id;
+  double kwota;
+  StatusPlatnosci status;
 
-    Platnosc(int idPlatnosci = 0, double kwotaPlatnosci = 0.0)
-        : id(idPlatnosci),
-          kwota(kwotaPlatnosci),
-          status(StatusPlatnosci::Oczekujaca) {}
+  Platnosc(int idPlatnosci = 0, double kwotaPlatnosci = 0.0);
 };
 
 #endif // PLATNOSC_H

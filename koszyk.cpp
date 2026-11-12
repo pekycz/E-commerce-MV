@@ -39,6 +39,10 @@ map<int, Koszyk::Pozycja>& Koszyk::pobierzProdukty(){
     return produkty_;
 }
 
+const map<int, Koszyk::Pozycja>& Koszyk::pobierzProdukty() const {
+    return produkty_;
+}
+
 void Koszyk::wyczysc() {
     produkty_.clear();
 };

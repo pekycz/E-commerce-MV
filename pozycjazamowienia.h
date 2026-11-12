@@ -12,15 +12,9 @@ class PozycjaZamowienia {
     int ilosc;
     double cena;
 
-    PozycjaZamowienia(int idPozycji, const Produkt& produktZamowienia, int liczbaSztuk)
-        : id(idPozycji),
-          produkt(produktZamowienia),
-          ilosc(liczbaSztuk),
-          cena(produktZamowienia.cena) {}
-
-    double obliczKoszt() const {
-      return ilosc * cena;
-    }
+  PozycjaZamowienia(int idPozycji, const Produkt& produktZamowienia,
+                    int liczbaSztuk);
+  double obliczKoszt() const;
 };
 
 #endif // POZYCJAZAMOWIENIA_H
