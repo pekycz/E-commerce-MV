@@ -18,6 +18,13 @@ int main()
 
   Klient &klient = sklep.zarejestrujKlienta("Ala", "haslo");
 
+  vector<PozycjaZamowienia> pozycjeTestowe;
+  pozycjeTestowe.emplace_back(1, sklep.znajdzProdukt(1), 1);
+  pozycjeTestowe.emplace_back(2, sklep.znajdzProdukt(2), 2);
+  Zamowienie zamowienieTestowe(100, pozycjeTestowe);
+  sklep.dodajZamowienie(zamowienieTestowe);
+  sklep.oplacZamowienie(100);
+
   int rola;
   cout << "Wybierz role:\n1. Klient\n2. Administrator\n";
   cin >> rola;
@@ -40,7 +47,8 @@ int main()
       cout << "2. Dodaj produkt do koszyka\n"
            << "3. Zloz zamowienie\n"
            << "4. Wyswietl zawartosc koszyka\n"
-           << "5. Pokaz zamowienia\n";
+           << "5. Pokaz zamowienia\n"
+           << "6. Sprawdz platnosci\n";
     }
     cout
          << "0. Zakoncz bez skladania zamowienia\n";
@@ -174,6 +182,25 @@ int main()
       }
       continue;
     }
+    if (!czyAdministrator && wybor == 6)
+    {
+      for (const Zamowienie& zamowienie : sklep.pobierzZamowienia())
+      {
+        string status = "Oczekujaca";
+        if (zamowienie.platnosc.status == StatusPlatnosci::Oplacona)
+        {
+          status = "Oplacona";
+        }
+        else if (zamowienie.platnosc.status == StatusPlatnosci::Odrzucona)
+        {
+          status = "Odrzucona";
+        }
+        cout << "Platnosc " << zamowienie.platnosc.id
+             << ", kwota: " << zamowienie.platnosc.kwota
+             << " zl, status: " << status << "\n";
+      }
+      continue;
+    }
     if (czyAdministrator && wybor == 2)
     {
       int id;
@@ -181,8 +208,15 @@ int main()
       double cena;
       cout << "Podaj id, nazwe i cene produktu: ";
       cin >> id >> nazwa >> cena;
-      administrator.dodajProdukt(Produkt(id, nazwa, cena), sklep);
-      cout << "Produkt dodano.\n";
+      try
+      {
+        administrator.dodajProdukt(Produkt(id, nazwa, cena), sklep);
+        cout << "Produkt dodano.\n";
+      }
+      catch (const exception& blad)
+      {
+        cout << "Blad: " << blad.what() << "\n";
+      }
       continue;
     }
     if (czyAdministrator && wybor == 3)
