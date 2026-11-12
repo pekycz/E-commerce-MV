@@ -18,6 +18,8 @@ class Klient : public Uzytkownik {
   public:
     Klient() = default;
 
+    string rola() const override;
+
     Klient(int id, string nazwa, string haslo);
 
     void dodajDoKoszyka(const Produkt& produkt, int ilosc);

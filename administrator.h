@@ -15,6 +15,7 @@ class Administrator : public Uzytkownik {
     Administrator() = default;
 
     Administrator(int id, string nazwa, string haslo);
+    string rola() const override;
 
     void dodajProdukt(const Produkt& produkt, SystemSklepu& sklep);
     void edytujProdukt(const Produkt& produkt, SystemSklepu& sklep);

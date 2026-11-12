@@ -15,3 +15,7 @@ void Administrator::dodajProdukt(const Produkt& produkt, SystemSklepu& sklep) {
 void Administrator::edytujProdukt(const Produkt& produkt, SystemSklepu& sklep) {
   sklep.edytujProdukt(produkt);
 }
+
+string Administrator::rola() const {
+  return "Administrator";
+}
