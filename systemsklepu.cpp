@@ -45,29 +45,6 @@ void SystemSklepu::dodajAdministratora(const Administrator &administrator)
   administratorzy_.push_back(administrator);
 }
 
-const Uzytkownik &SystemSklepu::zaloguj(
-    const string &nazwa, const string &haslo) const
-{
-  for (const Klient &klient : klienci_)
-  {
-    if (klient.pobierzNazwe() == nazwa && klient.hasloPasuje(haslo))
-    {
-      return klient;
-    }
-  }
-
-  for (const Administrator &administrator : administratorzy_)
-  {
-    if (administrator.pobierzNazwe() == nazwa &&
-        administrator.hasloPasuje(haslo))
-    {
-      return administrator;
-    }
-  }
-
-  throw invalid_argument("Nieprawidlowa nazwa uzytkownika lub haslo.");
-}
-
 void SystemSklepu::dodajProdukt(const Produkt &produkt)
 {
   for (const Produkt &istniejacyProdukt : produkty_)

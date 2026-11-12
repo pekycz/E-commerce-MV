@@ -40,7 +40,8 @@ int main()
     {
       cout << "2. Dodaj produkt do systemu\n"
            << "3. Pokaz zamowienia\n"
-           << "4. Zmien status zamowienia\n";
+           << "4. Zmien status zamowienia\n"
+           << "5. Zmien cene produktu\n";
     }
     else
     {
@@ -51,7 +52,7 @@ int main()
            << "6. Sprawdz platnosci\n";
     }
     cout
-         << "0. Zakoncz bez skladania zamowienia\n";
+        << "0. Zakoncz bez skladania zamowienia\n";
 
     int wybor;
     cout << "Wybierz opcje: ";
@@ -175,7 +176,7 @@ int main()
     }
     if (!czyAdministrator && wybor == 5)
     {
-      for (const Zamowienie& zamowienie : sklep.pobierzZamowienia())
+      for (const Zamowienie &zamowienie : sklep.pobierzZamowienia())
       {
         cout << "Zamowienie " << zamowienie.id
              << ", koszt: " << zamowienie.obliczKoszt() << " zl\n";
@@ -184,7 +185,7 @@ int main()
     }
     if (!czyAdministrator && wybor == 6)
     {
-      for (const Zamowienie& zamowienie : sklep.pobierzZamowienia())
+      for (const Zamowienie &zamowienie : sklep.pobierzZamowienia())
       {
         string status = "Oczekujaca";
         if (zamowienie.platnosc.status == StatusPlatnosci::Oplacona)
@@ -213,7 +214,7 @@ int main()
         administrator.dodajProdukt(Produkt(id, nazwa, cena), sklep);
         cout << "Produkt dodano.\n";
       }
-      catch (const exception& blad)
+      catch (const exception &blad)
       {
         cout << "Blad: " << blad.what() << "\n";
       }
@@ -221,7 +222,7 @@ int main()
     }
     if (czyAdministrator && wybor == 3)
     {
-      for (const Zamowienie& zamowienie : sklep.pobierzZamowienia())
+      for (const Zamowienie &zamowienie : sklep.pobierzZamowienia())
       {
         cout << "Zamowienie " << zamowienie.id
              << ", koszt: " << zamowienie.obliczKoszt() << " zl\n";
@@ -239,6 +240,43 @@ int main()
       administrator.zmienStatusZamowienia(
           idZamowienia, static_cast<StatusZamowienia>(status), sklep);
       cout << "Status zmieniono.\n";
+      continue;
+    }
+    if (czyAdministrator && wybor == 5)
+    {
+      cout << "\nDostepne produkty:\n";
+      for (const Produkt &produkt : sklep.pobierzProdukty())
+      {
+        cout << produkt.pobierzId() << ". " << produkt.pobierzNazwe()
+             << " - " << produkt.pobierzCene() << " zl\n";
+      }
+
+      int idProduktu;
+      double nowaCena;
+      cout << "Podaj id produktu: ";
+      cin >> idProduktu;
+
+      try
+      {
+        const Produkt produkt = sklep.znajdzProdukt(idProduktu);
+        cout << "Podaj nowa cene: ";
+        cin >> nowaCena;
+        if (nowaCena < 0)
+        {
+          cout << "Cena nie moze byc ujemna.\n";
+          continue;
+        }
+
+        administrator.edytujProdukt(
+            Produkt(idProduktu, produkt.pobierzNazwe(), nowaCena,
+                    produkt.pobierzKategorie()),
+            sklep);
+        cout << "Cene produktu zmieniono.\n";
+      }
+      catch (const exception &blad)
+      {
+        cout << "Blad: " << blad.what() << "\n";
+      }
       continue;
     }
     cout << "Nieprawidlowa opcja.\n";

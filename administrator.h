@@ -11,16 +11,17 @@ using namespace std;
 
 class SystemSklepu;
 
-class Administrator : public Uzytkownik {
-  public:
-    Administrator() = default;
+class Administrator : public Uzytkownik
+{
+public:
+  Administrator() = default;
 
-    Administrator(int id, string nazwa, string haslo);
-    string rola() const override;
-    void dodajProdukt(const Produkt& produkt, SystemSklepu& sklep);
-    void edytujProdukt(const Produkt& produkt, SystemSklepu& sklep);
-    void zmienStatusZamowienia(
-        int idZamowienia, StatusZamowienia status, SystemSklepu& sklep);
+  Administrator(int id, string nazwa, string haslo);
+  string rola() const override;
+  void dodajProdukt(const Produkt &produkt, SystemSklepu &sklep);
+  void edytujProdukt(const Produkt &produkt, SystemSklepu &sklep);
+  void zmienStatusZamowienia(
+      int idZamowienia, StatusZamowienia status, SystemSklepu &sklep);
 };
 
 #endif // ADMINISTRATOR_H
