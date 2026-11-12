@@ -18,7 +18,7 @@ int main()
 
   Klient &klient = sklep.zarejestrujKlienta("Ala", "haslo");
 
-  cout << "Witaj w sklepie, " << klient.nazwa << "!\n";
+  cout << "Witaj w sklepie, " << klient.pobierzNazwe() << "!\n";
 
   while (true)
   {
@@ -43,8 +43,8 @@ int main()
       cout << "\nDostepne produkty:\n";
       for (const Produkt &produkt : sklep.pobierzProdukty())
       {
-        cout << produkt.id << ". " << produkt.nazwa << " - "
-             << produkt.cena << " zl\n";
+        cout << produkt.pobierzId() << ". " << produkt.pobierzNazwe() << " - "
+             << produkt.pobierzCene() << " zl\n";
       }
 
       int idProduktu;
@@ -55,7 +55,7 @@ int main()
       bool znalezionoProdukt = false;
       for (const Produkt &produkt : sklep.pobierzProdukty())
       {
-        if (produkt.id == idProduktu)
+        if (produkt.pobierzId() == idProduktu)
         {
           wybranyProdukt = produkt;
           znalezionoProdukt = true;
@@ -74,7 +74,7 @@ int main()
       cin >> ilosc;
 
       klient.dodajDoKoszyka(wybranyProdukt, ilosc);
-      cout << "Dodano do koszyka: " << wybranyProdukt.nazwa
+      cout << "Dodano do koszyka: " << wybranyProdukt.pobierzNazwe()
            << ", ilosc: " << ilosc << ".\n";
 
       float sumaKoszyka = 0.00;
@@ -83,10 +83,10 @@ int main()
       {
         const Produkt &produkt = wpis.second.produkt;
         int iloscProduktu = wpis.second.ilosc;
-        float kosztPozycji = produkt.cena * iloscProduktu;
+        float kosztPozycji = produkt.pobierzCene() * iloscProduktu;
         sumaKoszyka += kosztPozycji;
 
-        cout << produkt.nazwa << " x " << iloscProduktu << " - "
+        cout << produkt.pobierzNazwe() << " x " << iloscProduktu << " - "
              << kosztPozycji << " zl\n";
       }
       cout << "Razem: " << sumaKoszyka << " zl\n";
@@ -119,10 +119,10 @@ int main()
       {
         const Produkt &produkt = wpis.second.produkt;
         int iloscProduktu = wpis.second.ilosc;
-        float kosztPozycji = produkt.cena * iloscProduktu;
+        float kosztPozycji = produkt.pobierzCene() * iloscProduktu;
         sumaKoszyka += kosztPozycji;
 
-        cout << produkt.nazwa << " x " << iloscProduktu << " - "
+        cout << produkt.pobierzNazwe() << " x " << iloscProduktu << " - "
              << kosztPozycji << " zl\n";
       }
       cout << "Razem: " << sumaKoszyka << " zl\n";

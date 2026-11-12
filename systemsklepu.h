@@ -29,6 +29,7 @@ public:
   void dodajProdukt(const Produkt &produkt);
   void edytujProdukt(const Produkt &produkt);
   void dodajZamowienie(const Zamowienie &zamowienie);
+  void oplacZamowienie(int idZamowienia);
   vector<Produkt> wyszukajProdukty(
       const string &nazwa, const string &kategoria) const;
   void zmienStatusZamowienia(int idZamowienia, StatusZamowienia status);

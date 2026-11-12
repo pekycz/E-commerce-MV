@@ -8,9 +8,6 @@ Administrator::Administrator(int id, string nazwa, string haslo) {
   Uzytkownik::haslo = haslo;
 }
 
-string Administrator::rola() const {
-  return "Administrator";
-}
 
 void Administrator::dodajProdukt(const Produkt& produkt, SystemSklepu& sklep) {
   sklep.dodajProdukt(produkt);

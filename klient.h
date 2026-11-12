@@ -18,8 +18,6 @@ class Klient : public Uzytkownik {
   public:
     Klient() = default;
 
-    string rola() const override;
-
     Klient(int id, string nazwa, string haslo);
 
     string rola() const override;

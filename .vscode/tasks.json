@@ -1,0 +1,54 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Kompiluj projekt GCC",
+            "type": "shell",
+            "command": "C:/msys64/ucrt64/bin/gcc.exe",
+            "args": [
+                "-std=c++17",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "${workspaceFolder}/administrator.cpp",
+                "${workspaceFolder}/klient.cpp",
+                "${workspaceFolder}/koszyk.cpp",
+                "${workspaceFolder}/main.cpp",
+                "${workspaceFolder}/platnosc.cpp",
+                "${workspaceFolder}/pozycjazamowienia.cpp",
+                "${workspaceFolder}/produkt.cpp",
+                "${workspaceFolder}/systemsklepu.cpp",
+                "${workspaceFolder}/uzytkownik.cpp",
+                "${workspaceFolder}/zamowienie.cpp",
+                "-lstdc++",
+                "-o",
+                "${workspaceFolder}/sklep.exe"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "options": {
+                "env": {
+                    "PATH": "C:\\msys64\\ucrt64\\bin;C:\\msys64\\usr\\bin;${env:PATH}"
+                }
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Uruchom sklep",
+            "type": "shell",
+            "command": "${workspaceFolder}/sklep.exe",
+            "dependsOn": "Kompiluj projekt GCC",
+            "dependsOrder": "sequence",
+            "options": {
+                "env": {
+                    "PATH": "C:\\msys64\\ucrt64\\bin;C:\\msys64\\usr\\bin;${env:PATH}"
+                }
+            },
+            "problemMatcher": []
+        }
+    ]
+}
