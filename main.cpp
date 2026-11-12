@@ -26,6 +26,9 @@ int main()
          << "1. Dodaj produkt do koszyka\n"
          << "2. Zloz zamowienie\n"
          << "3. Wyswietl zawartosc koszyka\n"
+         << "4. Wyszukaj produkt\n"
+         << "5. Pokaz zamowienia\n"
+         << "6. Zmien status zamowienia\n"
          << "0. Zakoncz bez skladania zamowienia\n";
 
     int wybor;
@@ -77,19 +80,17 @@ int main()
       cout << "Dodano do koszyka: " << wybranyProdukt.pobierzNazwe()
            << ", ilosc: " << ilosc << ".\n";
 
-      float sumaKoszyka = 0.00;
       cout << "\nZawartosc koszyka:\n";
       for (const auto &wpis : klient.pobierzProduktyWKoszyku())
       {
         const Produkt &produkt = wpis.second.produkt;
         int iloscProduktu = wpis.second.ilosc;
         float kosztPozycji = produkt.pobierzCene() * iloscProduktu;
-        sumaKoszyka += kosztPozycji;
 
         cout << produkt.pobierzNazwe() << " x " << iloscProduktu << " - "
              << kosztPozycji << " zl\n";
       }
-      cout << "Razem: " << sumaKoszyka << " zl\n";
+      cout << "Razem: " << klient.obliczKosztKoszyka() << " zl\n";
       continue;
     }
 
@@ -99,6 +100,7 @@ int main()
       {
         Zamowienie zamowienie = klient.zlozZamowienie();
         sklep.dodajZamowienie(zamowienie);
+        sklep.oplacZamowienie(zamowienie.id);
 
         cout << fixed << setprecision(2)
              << "Zamowienie nr " << zamowienie.id
@@ -113,19 +115,58 @@ int main()
     }
     if (wybor == 3)
     {
-      float sumaKoszyka = 0.00;
       cout << "\nZawartosc koszyka:\n";
       for (const auto &wpis : klient.pobierzProduktyWKoszyku())
       {
         const Produkt &produkt = wpis.second.produkt;
         int iloscProduktu = wpis.second.ilosc;
         float kosztPozycji = produkt.pobierzCene() * iloscProduktu;
-        sumaKoszyka += kosztPozycji;
 
         cout << produkt.pobierzNazwe() << " x " << iloscProduktu << " - "
              << kosztPozycji << " zl\n";
       }
-      cout << "Razem: " << sumaKoszyka << " zl\n";
+      cout << "Razem: " << klient.obliczKosztKoszyka() << " zl\n";
+      continue;
+    }
+    if (wybor == 4)
+    {
+      string nazwa;
+      string kategoria;
+      cout << "Podaj nazwe produktu: ";
+      cin >> nazwa;
+      cout << "Podaj kategorie lub -: ";
+      cin >> kategoria;
+      if (kategoria == "-")
+      {
+        kategoria = "";
+      }
+      for (const Produkt& produkt : sklep.wyszukajProdukty(nazwa, kategoria))
+      {
+        cout << produkt.pobierzId() << ". " << produkt.pobierzNazwe()
+             << " - " << produkt.pobierzCene() << " zl\n";
+      }
+      continue;
+    }
+    if (wybor == 5)
+    {
+      for (const Zamowienie& zamowienie : sklep.pobierzZamowienia())
+      {
+        cout << "Zamowienie " << zamowienie.id
+             << ", koszt: " << zamowienie.obliczKoszt() << " zl\n";
+      }
+      continue;
+    }
+    if (wybor == 6)
+    {
+      int idZamowienia;
+      int status;
+      cout << "Podaj id zamowienia: ";
+      cin >> idZamowienia;
+      cout << "Status (1 - W realizacji, 2 - Wyslane, 3 - Dostarczone): ";
+      cin >> status;
+      administrator.zmienStatusZamowienia(
+          idZamowienia, static_cast<StatusZamowienia>(status), sklep);
+      cout << "Status zmieniono.\n";
       continue;
     }
     cout << "Nieprawidlowa opcja. Wybierz 0, 1, 2 lub 3.\n";

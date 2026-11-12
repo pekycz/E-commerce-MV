@@ -22,6 +22,7 @@ class Koszyk {
     void dodajProdukt(const Produkt& produkt, int ilosc);
     void usunProdukt(const Produkt& produkt, int ilosc);
     void wyczysc();
+    double obliczKoszt() const;
     map<int, Pozycja>& pobierzProdukty();
     const map<int, Pozycja>& pobierzProdukty() const;
   };

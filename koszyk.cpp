@@ -46,3 +46,11 @@ const map<int, Koszyk::Pozycja>& Koszyk::pobierzProdukty() const {
 void Koszyk::wyczysc() {
     produkty_.clear();
 };
+
+double Koszyk::obliczKoszt() const {
+    double suma = 0.0;
+    for (const auto& wpis : produkty_) {
+    suma += wpis.second.produkt.pobierzCene() * wpis.second.ilosc;
+    }
+    return suma;
+}

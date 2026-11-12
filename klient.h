@@ -24,6 +24,7 @@ class Klient : public Uzytkownik {
     void dodajDoKoszyka(const Produkt& produkt, int ilosc);
 
     const map<int, Koszyk::Pozycja>& pobierzProduktyWKoszyku() const;
+    double obliczKosztKoszyka() const;
 
     Zamowienie zlozZamowienie();
 };

@@ -22,6 +22,10 @@ const map<int, Koszyk::Pozycja>& Klient::pobierzProduktyWKoszyku() const {
       return koszyk.pobierzProdukty();
     }
 
+double Klient::obliczKosztKoszyka() const {
+      return koszyk.obliczKoszt();
+    }
+
 Zamowienie Klient::zlozZamowienie() {
       if (koszyk.pobierzProdukty().empty()) {
         throw runtime_error("Koszyk jest pusty.");
