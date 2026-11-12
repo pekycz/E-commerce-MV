@@ -128,7 +128,7 @@ int main()
       cout << "Razem: " << sumaKoszyka << " zl\n";
       continue;
     }
-    cout << "Nieprawidlowa opcja. Wybierz 0, 1 lub 2.\n";
+    cout << "Nieprawidlowa opcja. Wybierz 0, 1, 2 lub 3.\n";
   }
 
   return 0;
