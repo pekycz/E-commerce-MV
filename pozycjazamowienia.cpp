@@ -5,7 +5,7 @@ PozycjaZamowienia::PozycjaZamowienia(
     : id(idPozycji),
       produkt(produktZamowienia),
       ilosc(liczbaSztuk),
-      cena(produktZamowienia.cena) {}
+    cena(produktZamowienia.pobierzCene()) {}
 
 double PozycjaZamowienia::obliczKoszt() const {
   return ilosc * cena;
