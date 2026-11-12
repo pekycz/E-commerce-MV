@@ -10,9 +10,9 @@ void Koszyk::dodajProdukt(const Produkt& produkt, int ilosc) {
     throw invalid_argument("Ilosc musi byc wieksza od zera.");
     }
 
-    auto pozycja = produkty_.find(produkt.id);
+    auto pozycja = produkty_.find(produkt.pobierzId());
     if (pozycja == produkty_.end()) {
-    produkty_.emplace(produkt.id, Pozycja{produkt, ilosc});
+    produkty_.emplace(produkt.pobierzId(), Pozycja{produkt, ilosc});
     } else {
     pozycja->second.ilosc += ilosc;
     }
@@ -23,7 +23,7 @@ void Koszyk::usunProdukt(const Produkt& produkt, int ilosc) {
     throw invalid_argument("Ilosc musi byc wieksza od zera.");
     }
 
-    auto pozycja = produkty_.find(produkt.id);
+    auto pozycja = produkty_.find(produkt.pobierzId());
     if (pozycja == produkty_.end()) {
     throw out_of_range("Produktu nie ma w koszyku.");
     }
