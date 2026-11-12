@@ -9,6 +9,9 @@ Klient::Klient(int id, string nazwa, string haslo) {
       Uzytkownik::haslo = haslo;
     }
 
+string Klient::rola() const {
+  return "Klient";
+}
 
 void Klient::dodajDoKoszyka(const Produkt& produkt, int ilosc) {
     koszyk.dodajProdukt(produkt, ilosc);
