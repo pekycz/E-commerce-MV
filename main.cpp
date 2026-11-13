@@ -6,6 +6,23 @@
 
 using namespace std;
 
+string nazwaStatusu(StatusZamowienia status)
+{
+  if (status == StatusZamowienia::WRealizacji)
+  {
+    return "W realizacji";
+  }
+  if (status == StatusZamowienia::Wyslane)
+  {
+    return "Wyslane";
+  }
+  if (status == StatusZamowienia::Dostarczone)
+  {
+    return "Dostarczone";
+  }
+  return "Nowe";
+}
+
 int main()
 {
   SystemSklepu sklep;
@@ -180,7 +197,9 @@ int main()
       for (const Zamowienie &zamowienie : sklep.pobierzZamowienia())
       {
         cout << "Zamowienie " << zamowienie.id
-             << ", koszt: " << zamowienie.obliczKoszt() << " zl\n";
+             << ", koszt: " << zamowienie.obliczKoszt()
+             << " zl, status: "
+             << nazwaStatusu(zamowienie.pobierzStatus()) << "\n";
       }
       continue;
     }
@@ -245,7 +264,9 @@ int main()
       for (const Zamowienie &zamowienie : sklep.pobierzZamowienia())
       {
         cout << "Zamowienie " << zamowienie.id
-             << ", koszt: " << zamowienie.obliczKoszt() << " zl\n";
+             << ", koszt: " << zamowienie.obliczKoszt()
+             << " zl, status: "
+             << nazwaStatusu(zamowienie.pobierzStatus()) << "\n";
       }
       continue;
     }
@@ -253,13 +274,27 @@ int main()
     {
       int idZamowienia;
       int status;
+      cout << "\nObecne zamowienia:\n";
+      for (const Zamowienie &zamowienie : sklep.pobierzZamowienia())
+      {
+        cout << "Zamowienie " << zamowienie.id
+             << ", status: "
+             << nazwaStatusu(zamowienie.pobierzStatus()) << "\n";
+      }
       cout << "Podaj id zamowienia: ";
       cin >> idZamowienia;
       cout << "Status (1 - W realizacji, 2 - Wyslane, 3 - Dostarczone): ";
       cin >> status;
-      administrator.zmienStatusZamowienia(
-          idZamowienia, static_cast<StatusZamowienia>(status), sklep);
-      cout << "Status zmieniono.\n";
+      try
+      {
+        administrator.zmienStatusZamowienia(
+            idZamowienia, static_cast<StatusZamowienia>(status), sklep);
+        cout << "Status zmieniono.\n";
+      }
+      catch (const exception &blad)
+      {
+        cout << "Blad: " << blad.what() << "\n";
+      }
       continue;
     }
     if (czyAdministrator && wybor == 5)

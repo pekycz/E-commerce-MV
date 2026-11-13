@@ -13,6 +13,11 @@ double Zamowienie::obliczKoszt() const
   return platnosc.kwota;
 }
 
+StatusZamowienia Zamowienie::pobierzStatus() const
+{
+  return status_;
+}
+
 void Zamowienie::zmienStatus(StatusZamowienia nowyStatus)
 {
   if (static_cast<int>(nowyStatus) != static_cast<int>(status_) + 1)

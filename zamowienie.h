@@ -27,6 +27,7 @@ private:
 public:
   Zamowienie(int idZamowienia, const vector<PozycjaZamowienia>& pozycje);
   double obliczKoszt() const;
+  StatusZamowienia pobierzStatus() const;
   void zmienStatus(StatusZamowienia nowyStatus);
 
 private:
