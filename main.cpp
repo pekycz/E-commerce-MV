@@ -28,7 +28,7 @@ int main()
   SystemSklepu sklep;
   Administrator administrator(1, "admin", "haslo");
   sklep.dodajAdministratora(administrator);
-
+  
   administrator.dodajProdukt(Produkt(1, "Klawiatura", 149.99), sklep);
   administrator.dodajProdukt(Produkt(2, "Mysz", 79.99), sklep);
   administrator.dodajProdukt(Produkt(3, "Sluchawki", 199.99), sklep);
@@ -46,8 +46,16 @@ int main()
   cout << "Wybierz role:\n1. Klient\n2. Administrator\n";
   cin >> rola;
   bool czyAdministrator = rola == 2;
-  cout << "Zalogowano jako "
-       << (czyAdministrator ? "Administrator" : "Klient") << ".\n";
+  if (czyAdministrator)
+  {
+    const Uzytkownik& uzytkownik = administrator;
+    cout << "Rola uzytkownika: " << uzytkownik.rola() << "\n";
+  }
+  else
+  {
+    const Uzytkownik& uzytkownik = klient;
+    cout << "Rola uzytkownika: " << uzytkownik.rola() << "\n";
+  }
 
   while (true)
   {
