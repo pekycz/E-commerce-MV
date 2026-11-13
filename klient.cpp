@@ -18,6 +18,10 @@ void Klient::dodajDoKoszyka(const Produkt& produkt, int ilosc) {
     koszyk.dodajProdukt(produkt, ilosc);
     }
 
+void Klient::usunZKoszyka(const Produkt& produkt, int ilosc) {
+      koszyk.usunProdukt(produkt, ilosc);
+    }
+
 const map<int, Koszyk::Pozycja>& Klient::pobierzProduktyWKoszyku() const {
       return koszyk.pobierzProdukty();
     }

@@ -49,7 +49,8 @@ int main()
            << "3. Zloz zamowienie\n"
            << "4. Wyswietl zawartosc koszyka\n"
            << "5. Pokaz zamowienia\n"
-           << "6. Sprawdz platnosci\n";
+           << "6. Sprawdz platnosci\n"
+           << "7. Usun produkt z koszyka\n";
     }
     cout
         << "0. Zakoncz bez skladania zamowienia\n";
@@ -199,6 +200,25 @@ int main()
         cout << "Platnosc " << zamowienie.platnosc.id
              << ", kwota: " << zamowienie.platnosc.kwota
              << " zl, status: " << status << "\n";
+      }
+      continue;
+    }
+    if (!czyAdministrator && wybor == 7)
+    {
+      int idProduktu;
+      int ilosc;
+      cout << "Podaj id produktu: ";
+      cin >> idProduktu;
+      cout << "Podaj ilosc: ";
+      cin >> ilosc;
+      try
+      {
+        klient.usunZKoszyka(sklep.znajdzProdukt(idProduktu), ilosc);
+        cout << "Produkt usunieto z koszyka.\n";
+      }
+      catch (const exception& blad)
+      {
+        cout << "Blad: " << blad.what() << "\n";
       }
       continue;
     }

@@ -22,6 +22,7 @@ class Klient : public Uzytkownik {
 
     string rola() const override;
     void dodajDoKoszyka(const Produkt& produkt, int ilosc);
+    void usunZKoszyka(const Produkt& produkt, int ilosc);
 
     const map<int, Koszyk::Pozycja>& pobierzProduktyWKoszyku() const;
     double obliczKosztKoszyka() const;

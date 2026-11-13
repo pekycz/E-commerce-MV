@@ -4,7 +4,6 @@
 #include "platnosc.h"
 #include "pozycjazamowienia.h"
 
-#include <ctime>
 #include <vector>
 
 using namespace std;
@@ -19,7 +18,6 @@ enum class StatusZamowienia {
 class Zamowienie {
   public:
     int id;
-    time_t data;
     Platnosc platnosc;
 
 private:
@@ -29,8 +27,6 @@ private:
 public:
   Zamowienie(int idZamowienia, const vector<PozycjaZamowienia>& pozycje);
   double obliczKoszt() const;
-  const vector<PozycjaZamowienia>& pobierzPozycje() const;
-  StatusZamowienia pobierzStatus() const;
   void zmienStatus(StatusZamowienia nowyStatus);
 
 private:

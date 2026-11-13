@@ -4,7 +4,6 @@
 Zamowienie::Zamowienie(
     int idZamowienia, const vector<PozycjaZamowienia> &pozycje)
     : id(idZamowienia),
-      data(time(nullptr)),
       platnosc(idZamowienia, obliczKosztPozycji(pozycje)),
       pozycje_(pozycje),
       status_(StatusZamowienia::Nowe) {}
@@ -12,16 +11,6 @@ Zamowienie::Zamowienie(
 double Zamowienie::obliczKoszt() const
 {
   return platnosc.kwota;
-}
-
-const vector<PozycjaZamowienia> &Zamowienie::pobierzPozycje() const
-{
-  return pozycje_;
-}
-
-StatusZamowienia Zamowienie::pobierzStatus() const
-{
-  return status_;
 }
 
 void Zamowienie::zmienStatus(StatusZamowienia nowyStatus)
